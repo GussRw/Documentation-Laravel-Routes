@@ -1,5 +1,5 @@
 {
-    "name": "gussrw/routes",
+    "name": "gussrw/laravel-routes",
     "description": "Documentation of Laravel Routes",
     "type": "laravel-plugin",
     "license": "GNU GPL",
