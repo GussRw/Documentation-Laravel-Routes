@@ -2,7 +2,7 @@
     "name": "gussrw/laravel-routes",
     "description": "Documentation of Laravel Routes",
     "type": "laravel-plugin",
-    "license": "GNU GPL",
+    "license": "proprietary",
     "authors": [
         {
             "name": "GussRw",
