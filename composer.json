@@ -1,0 +1,14 @@
+{
+    "name": "gussrw/routes",
+    "description": "Documentation of Laravel Routes",
+    "type": "laravel-plugin",
+    "license": "GNU GPL",
+    "authors": [
+        {
+            "name": "GussRw",
+            "email": "gussrw1@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
