@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: guss
- * Date: 4/13/18
- * Time: 3:50 PM
- */
+namespace GussRw\Routes;
 
 class Routes
 {

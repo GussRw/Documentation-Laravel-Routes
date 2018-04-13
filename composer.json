@@ -10,5 +10,14 @@
             "email": "gussrw1@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "GussRw\\Routes\\": "src"
+        }
+    }
 }
