@@ -3,7 +3,7 @@
     "description": "Documentation of Laravel Routes",
     "type": "laravel-plugin",
     "license": "proprietary",
-    "version": "1.0.1",
+    "version": "1.0.5",
     "authors": [
         {
             "name": "GussRw",
