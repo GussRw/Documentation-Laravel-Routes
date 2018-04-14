@@ -1,5 +1,5 @@
 <?php
-namespace GussRw\Routes;
+namespace GussRw\LaravelRoutes;
 
 class Routes
 {

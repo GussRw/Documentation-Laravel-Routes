@@ -1,6 +1,6 @@
 <?php
 
-namespace GussRw\Routes;
+namespace GussRw\LaravelRoutes;
 
 use Illuminate\Support\ServiceProvider;
 

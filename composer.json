@@ -12,12 +12,19 @@
     ],
     "require": {},
     "autoload": {
-        "classmap": [
-            "database"
-        ],
         "psr-4": {
-            "App\\": "app/",
-            "GussRw\\Routes\\": "src"
+            "GussRw\\LaravelRoutes\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GussRw\\LaravelRoutes\\LaravelRoutesServiceProvider"
+            ],
+            "aliases": {
+                "Routes": "GussRw\\LaravelRoutes\\Facade\\Routes"
+            }
         }
     }
+
 }
