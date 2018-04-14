@@ -1,5 +1,5 @@
 <?php
-namespace GussRw\LaravelRoutes\Facades;
+namespace GussRw\LaravelRoutes\Facade;
 
 class Routes extends Facade
 {
