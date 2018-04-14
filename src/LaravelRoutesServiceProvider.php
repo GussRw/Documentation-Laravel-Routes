@@ -6,6 +6,9 @@ use Illuminate\Support\ServiceProvider;
 
 class LaravelRoutesServiceProvider extends ServiceProvider
 {
+    protected $commands = [
+        Commands\GenerateDocs::class
+    ];
     /**
      * Bootstrap services.
      *
@@ -13,7 +16,7 @@ class LaravelRoutesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->loadViewsFrom(__DIR__. '/Views/', 'laravel-routes');
     }
 
     /**
@@ -23,6 +26,6 @@ class LaravelRoutesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        $this->commands($this->commands);
     }
 }
