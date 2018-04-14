@@ -1,6 +1,8 @@
 <?php
 namespace GussRw\LaravelRoutes;
 
+use Illuminate\Support\Facades\Artisan;
+
 class Routes
 {
     public static function getArrayRoutes()
