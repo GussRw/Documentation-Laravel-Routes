@@ -22,11 +22,9 @@ You can generate the html file from console with the next artisan command.
 
 `php artisan route:docs`
 
-This command create a html file in Project/docs, to indicate the html file path, you can use option --path 
+This command create a html file in Project/docs, to indicate the html file path, you can use option --path
 
 `php artisan route:docs --path=/routes/docs`
-
-
 
 ## Route description
 
@@ -37,6 +35,22 @@ Description are optional, but if you want to add them create a php comment over 
  * @description Show the home page of the site
  */
 Route::get('/home', 'HomeController@index') -> name('home.index');
+```
+
+### Resources routes
+
+The descriptions in the resource type routes are identified by their method in the controller.
+
+```
+/**
+ * @index Show the main view
+ * @create Muestra una vista para crear
+ * @store Guarda una cosa
+ * @edit Show the view to edit a photo
+ * @update Actualiza los datos de la cosa
+ * @destroy Borra la cosa
+ */
+Route::resource('photos', 'PhotoController');
 ```
 
 
