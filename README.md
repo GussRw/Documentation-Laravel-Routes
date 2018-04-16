@@ -44,11 +44,11 @@ The descriptions in the resource type routes are identified by their method in t
 ```
 /**
  * @index Show the main view
- * @create Muestra una vista para crear
- * @store Guarda una cosa
+ * @create Show the view to create a photo
+ * @store Save a photo in database
  * @edit Show the view to edit a photo
- * @update Actualiza los datos de la cosa
- * @destroy Borra la cosa
+ * @update Update photo data in database
+ * @destroy Delete a photo in database
  */
 Route::resource('photos', 'PhotoController');
 ```
