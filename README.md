@@ -22,13 +22,13 @@ You can generate the html file from console with the next artisan command.
 
 `php artisan route:docs`
 
-This command create a html file in Project/docs, to indicate the html file path, you can use option --path
+This command create a html file in Project/docs, to indicate the html file path, you can use option `--path`
 
 `php artisan route:docs --path=/routes/docs`
 
 ## Route description
 
-Description are optional, but if you want to add them create a php comment over the each route in the web.php file with @description.
+Description are optional, but if you want to add them create a php comment over the each route in the web.php file with `@description`.
 
 ```
 /**
@@ -55,7 +55,7 @@ Route::resource('photos', 'PhotoController');
 
 ## Params
 
-Routes params are defined with `@param name Description, you can use  @param in resource type routes.`
+Routes params are defined with `@param name Description`, you can use  @param in resource type routes.
 
 ```
 /**
