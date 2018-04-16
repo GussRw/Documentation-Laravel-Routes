@@ -10,7 +10,8 @@ class Route
         $this->name = $values['name'];
         $this->action = $values['action'];
         $this->middleware = $values['middleware'];
-        $this->comment=null;
+        $this->comment = null;
+        $this->params = collect();
     }
 
     public function getMethodClass()
@@ -26,5 +27,9 @@ class Route
             case "DELETE":
                 return "delete";
         }
+    }
+    public function addParam(Param $param)
+    {
+        $this->params->push($param);
     }
 }

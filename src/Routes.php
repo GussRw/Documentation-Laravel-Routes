@@ -1,6 +1,7 @@
 <?php
 namespace GussRw\LaravelRoutes;
 
+use GussRw\LaravelRoutes\Models\Param;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\View;
 use GussRw\LaravelRoutes\Models\Route;
@@ -21,7 +22,8 @@ class Routes
         $myfile = fopen($path, "r") or die("Unable to open file!");
         $file_string= strval(fread($myfile,filesize($path)));
 
-        array_splice($routes_array,0,3);
+        array_splice($routes_array,0,3); //Remove the header table routes
+        array_splice($routes_array,count($routes_array)-2,count($routes_array)); //Remove the footer table routes
         $routes = collect();
         foreach ($routes_array as $key => $route_string)
         {
@@ -33,23 +35,43 @@ class Routes
                 'middleware' => trim(substr($route_string,$middleware_index,strlen($route_string)-$middleware_index-2)),
             ]);
             if($route -> action!=null){
-                preg_match("~App\\\Http\\\Controllers\\\((.*?)@.*$)~",$route -> action,$controller, PREG_OFFSET_CAPTURE);
+                preg_match("~App\\\Http\\\Controllers\\\((.*?)@(.*$))~",$route -> action,$controller, PREG_OFFSET_CAPTURE);
                 if($controller){
+
                     $route_part = substr($file_string,0, strpos($file_string, $controller[1][0]));
+
+                    if($route_part != null)
+                    {
+                        preg_match_all("~//?\s*\*[\s\S]*?\*\s*//?~m",$route_part,$comments, PREG_OFFSET_CAPTURE);
+                        $comment = end($comments[0])[0];
+                        preg_match_all("~@description([\s\S]*?)\\n~",$comment,$descriptions, PREG_OFFSET_CAPTURE);
+                        if(isset($descriptions[1]) && $descriptions[1]!=[])
+                            $route->comment= trim($descriptions[1][0][0]);
+                        preg_match_all("~@param([\s\S]*? ){2}([\s\S]*?)\\n~",$comment,$params, PREG_OFFSET_CAPTURE);
+                        foreach($params[1] as $key => $param)
+                            $route->addParam(new Param([
+                                'name' => $param[0],
+                                'description' => $params[2][$key][0],
+                            ]));
+                    }else
+                    {
+                        $route_part = substr($file_string,0, strpos($file_string, $controller[2][0]));
+                        preg_match_all("~//?\s*\*[\s\S]*?\*\s*//?~m",$route_part,$comments, PREG_OFFSET_CAPTURE);
+                        $comment = end($comments[0])[0];
+                        preg_match_all("~@".strval($controller[3][0])."([\s\S]*?)\\n~",$comment,$descriptions, PREG_OFFSET_CAPTURE);
+                        if(isset($descriptions[1][0]) && $descriptions[1][0]!=[])
+                            $route->comment = trim($descriptions[1][0][0]);
+                        preg_match_all("~@param([\s\S]*? ){2}([\s\S]*?)\\n~",$comment,$params, PREG_OFFSET_CAPTURE);
+                        foreach($params[1] as $key => $param)
+                            if(strpos($route->uri,"{".trim($param[0])."}"))
+                                $route->addParam(new Param([
+                                    'name' => $param[0],
+                                    'description' => $params[2][$key][0],
+                                ]));
+                    }
                 }
             }
-            if(isset($route_part) && $route_part)
-            {
-                preg_match_all("~//?\s*\*[\s\S]*?\*\s*//?~m",$route_part,$comments, PREG_OFFSET_CAPTURE);
-                $comment = end($comments[0])[0];
-                preg_match_all("~@description([\s\S]*?)\\n~",$route_part,$descriptions, PREG_OFFSET_CAPTURE);
-                if($descriptions[1]!=[])
-                    $route->comment= trim($descriptions[1][0][0]);
-            }
-
-
             $routes->push($route);
-
         }
         return $routes;
     }

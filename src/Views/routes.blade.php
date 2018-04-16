@@ -67,7 +67,32 @@
                                 <h4 class="opblock-title">Parametros</h4>
                             </div>
                         </div> <!-- opblock-section-header -->
-                        <div class="opblock-description-wrapper"><p>Sin parametros</p></div>
+                        @if($route->params->isEmpty())
+                            <div class="opblock-description-wrapper"><p>Sin parametros</p></div>
+                        @else
+                            <div class="table-container">
+                                <table class="parameters">
+                                    <thead>
+                                    <tr>
+                                        <th class="col col_header parameters-col_name">Nombre</th>
+                                        <th class="col col_header parameters-col_controller">Descripción</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($route -> params as $param)
+                                            <tr>
+                                                <td class="col parameters-col_name">
+                                                    <div class="markdown">{{ $param -> name }}</div>
+                                                </td>
+                                                <td class="col parameters-col_controller">
+                                                    <div class="markdown"> {{ $param -> description }}</div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
                     </div> <!-- opblock-section -->
                 </div> <!-- opblock-body -->
             </div> <!-- opblock -->
