@@ -55,7 +55,7 @@ Route::resource('photos', 'PhotoController');
 
 ## Params
 
-Routes params are defined with `@param name Description`
+Routes params are defined with `@param name Description, you can use  @param in resource type routes.`
 
 ```
 /**
