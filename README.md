@@ -53,5 +53,17 @@ The descriptions in the resource type routes are identified by their method in t
 Route::resource('photos', 'PhotoController');
 ```
 
+## Params
+
+Routes params are defined with `@param name Description`
+
+```
+/**
+ * @description Download photo with the photo id.
+ * @param id ID of the photo in database
+ */
+Route::get('/photo/{id}/download', 'PhotoController@download');
+```
+
 
 
