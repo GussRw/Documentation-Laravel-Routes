@@ -2,6 +2,7 @@
 namespace GussRw\LaravelRoutes;
 
 use GussRw\LaravelRoutes\Models\Param;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\View;
 use GussRw\LaravelRoutes\Models\Route;
@@ -55,10 +56,11 @@ class Routes
                             ]));
                     }else
                     {
-                        $route_part = substr($file_string,0, strpos($file_string, $controller[2][0]));
+
+                        $route_part = substr($file_string,0, strripos($file_string, $controller[2][0]));
                         preg_match_all("~//?\s*\*[\s\S]*?\*\s*//?~m",$route_part,$comments, PREG_OFFSET_CAPTURE);
                         $comment = end($comments[0])[0];
-                        preg_match_all("~@".strval($controller[3][0])."([\s\S]*?)\\n~",$comment,$descriptions, PREG_OFFSET_CAPTURE);
+                        preg_match_all("~@".strval(trim($controller[3][0]))."([\s\S]*?)\\n~",$comment,$descriptions, PREG_OFFSET_CAPTURE);
                         if(isset($descriptions[1][0]) && $descriptions[1][0]!=[])
                             $route->comment = trim($descriptions[1][0][0]);
                         preg_match_all("~@param([\s\S]*? ){2}([\s\S]*?)\\n~",$comment,$params, PREG_OFFSET_CAPTURE);
@@ -71,23 +73,30 @@ class Routes
                     }
                 }
             }
-            $routes->push($route);
+
+
+            if(!resolve(Config::class)->commented)
+                $routes->push($route);
+            else if($route->comment != null)
+                $routes->push($route);
+
         }
-        return $routes;
+        return $routes->sortBy(resolve(Config::class)->sortby);
     }
 
     public static function getRoutesView()
     {
         $routes = self::getRoutesArray();
+        App::setLocale(resolve(Config::class)->lang);
         $html = View::make('laravel-routes::routes',compact('routes'))->render();
         return $html;
     }
 
 
-    public static function createFileHtml($path)
+    public static function createHtmlFile()
     {
         $html = self::getRoutesView();
-
+        $path = base_path().resolve(Config::class)->path;
         if(!is_dir($path))
             mkdir($path, 0777, true);
 

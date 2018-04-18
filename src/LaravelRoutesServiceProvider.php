@@ -17,6 +17,7 @@ class LaravelRoutesServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__. '/Views/', 'laravel-routes');
+        $this->loadTranslationsFrom(__DIR__.'/Lang/','laravel-routes');
     }
 
     /**

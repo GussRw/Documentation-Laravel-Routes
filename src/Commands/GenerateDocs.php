@@ -2,8 +2,10 @@
 
 namespace GussRw\LaravelRoutes\Commands;
 
+use GussRw\LaravelRoutes\Config;
 use Illuminate\Console\Command;
 use GussRw\LaravelRoutes\Routes;
+use Illuminate\Support\Facades\App;
 
 class GenerateDocs extends Command
 {
@@ -12,7 +14,7 @@ class GenerateDocs extends Command
      *
      * @var string
      */
-    protected $signature = 'route:docs {--path=}';
+    protected $signature = 'route:docs {--path=} {--commented=} {--sortby=} {--lang=}';
 
     /**
      * The console command description.
@@ -39,16 +41,31 @@ class GenerateDocs extends Command
     public function handle()
     {
         $path = $this->option('path');
-        $real_path = base_path();
-        if($path)
-            $real_path .= $path;
-        else
-        {
-            $real_path .= "/docs";
-            $path = "/docs";
-        }
+        $commented = boolval($this->option('commented')!=null && $this->option('commented')=="true");
+        $sortby = $this->option('sortby');
+        $lang = $this->option('lang');
 
-        Routes::createFileHtml($real_path);
+        if($path==null)
+            $path = "/docs";
+
+        if(!in_array($lang, array("en", "es")))
+            $lang = "en";
+
+        if(!in_array($sortby, array("method","uri","name","action","middleware","comment")))
+            $sortby = "uri";
+
+        $config = new Config([
+            'path' => $path,
+            'commented' => $commented,
+            'sortby' => $sortby,
+            'lang' => $lang
+        ]);
+        App::instance(Config::class,$config);
+
+
+
+
+        Routes::createHtmlFile();
         $this->info('Route documentation successfully created in Project'.$path);
     }
 }
