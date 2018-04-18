@@ -65,6 +65,17 @@ Route::get('/photo/{id}/download', 'PhotoController@download');
 
 ## Options
 
+#### Lang
+
+To show the documentation in another language, you can use option `--lang`  , default is en
+
+`php artisan route:docs --lang=es`
+
+Languages ​​currently available:
+
+* en     set to english
+* es     set to spanish
+
 #### Path
 
 To indicate the html file path, you can use option `--path`  , default is `/docs`
