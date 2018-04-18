@@ -22,9 +22,7 @@ You can generate the html file from console with the next artisan command.
 
 `php artisan route:docs`
 
-This command create a html file in Project/docs, to indicate the html file path, you can use option `--path`
-
-`php artisan route:docs --path=/routes/docs`
+This command create a html file in Project/docs.
 
 ## Route description
 
@@ -64,6 +62,35 @@ Routes params are defined with `@param name Description`, you can use  @param in
  */
 Route::get('/photo/{id}/download', 'PhotoController@download');
 ```
+
+## Options
+
+#### Path
+
+To indicate the html file path, you can use option `--path`  , default is `/docs`
+
+`php artisan route:docs --path=/routes/docs`
+
+#### Commented
+
+To show only the routes that have a comment, you can use the option `--commented`  , default is `false`
+
+`php artisan route:docs --commented=true`
+
+#### Sort By
+
+To sort the routes by some property, you can use the option `--sortby`  ,default is `uri`
+
+`php artisan route:docs --sortby=name`
+
+Properties available to order:
+
+* method
+* uri
+* name
+* action
+* middleware
+* comment
 
 
 
