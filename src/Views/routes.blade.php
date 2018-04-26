@@ -29,7 +29,7 @@
                                                             <a class="nostyle">
                                                                 <span>{{ $route->uri }}</span>
                                                             </a>
-                                                            <img src="arrow.svg" class="view-line-link">
+                                                            <img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDI0IDI0IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyNCAyNCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxwYXRoIGQ9Ik0xOSA3djRINS44M2wzLjU4LTMuNTlMOCA2bC02IDYgNiA2IDEuNDEtMS40MUw1LjgzIDEzSDIxVjd6Ii8+Cjwvc3ZnPgo=" class="view-line-link">
                                                         </span> <!-- opblock-summary-path -->
                             <div class="opblock-summary-description">{{ $route -> comment }}</div>
                             <button class="authorization__btn unlocked" aria-label="authorization button unlocked">
@@ -111,3 +111,4 @@
         </section><!--//doc-section-->
     </body>
 </html>
+
